@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Blog App{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+  
+  <div class="mx-auto" style="width: 200px;">
+    <h1>Blogs</h1>
+  </div><br>
+{% comment %} 
+{% for blog in object_list %}
+
+<div class = "blog entry card">  <!--see description below-->
+  <div class="card-body text-black bg-light">
+<h2><a href="{% url 'blog_detail' blog.pk %}">{{ blog.title }}</a></h2>
+<p>{{ blog.body|truncatewords:10 }}</p>
+</div>
+</div>
+
+{% endfor %} {% endcomment %}
+
+<div class="container d-flex  flex-wrap card-design" style="width:100%;height:auto;justify-content:space-evenly;">
+{% for blog in object_list %}
+<div class="card mb-5" style="width:18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ blog.title }}</h5>
+    <p class="card-text">{{ blog.body|truncatewords:10 }}<a class="btn btn-link btn-sm" role="button" aria-disabled="true" href="{% url 'blog_detail' blog.pk %}">read more.</a></p>
+    {% comment %} <div class="d-flex justify-content-sm-end"> {% endcomment %}
+     
+    {% comment %} </div> {% endcomment %}
+  </div>
+</div>
+
+{% endfor %} 
+
+</div>
+
+
+{% else %}
+  <div class="mx-auto" style="width: 300px;">
+  <h3>You are not logged in !</h3></div><br>
+  <div class="mx-auto" style="width: 150px;">
+  <a href="{% url 'login' %}">Log In</a> |
+  <a href="{% url 'signup' %}">Sign Up</a>
+  </div>
+{% endif %}
+
+{% endblock content %}
+
+
+<!-- NOTE: 
+-the object_list came from the class ListView.
+-blog entry will show your list items line by line instead of mentioning all the items in the same line.
+
+-->

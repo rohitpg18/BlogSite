@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Blog App{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+  
+  <div class="mx-auto" style="width: 200px;">
+    <h1>My Blogs</h1>
+  </div><br>
+
+{% for blog in blogs %}
+
+<div class = "blog entry card">  <!--see description below-->
+  <div class="card-body text-black bg-light">
+<h2><a href="{% url 'blog_detail' blog.pk %}">{{ blog.title }}</a></h2>
+<p>{{ blog.body|truncatewords:10 }}</p>
+</div>
+</div>
+{% endfor %}
+
+{% endif %}
+
+
+
+{% endblock content%}
